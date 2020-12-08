@@ -133,6 +133,7 @@ def num_points_scored(players_name)
     values.each do |key_2, values_2|
       if key_2 == :players
         values_2.each do |key_player|
+          binding.pry
           if key_player.has_value?(players_name)
             return key_player[:points]
           end
