@@ -127,43 +127,35 @@ def game_hash
   }
 end
 
+def find_player player_name
+  found_player = players.find do |player|
+    player[:player_name] == player_name
+  end
+end
+
+def players
+  game_hash[:home][:players].concat game_hash[:away][:players]
+end
+
+
+def find_team team_name
+  game_hash.values.find do |team|
+    team_name == team[:team_name]
+  end
+end
+
+
 # Write code here
 def num_points_scored(players_name)
-  game_hash.each do |key, values|
-    values.each do |key_2, values_2|
-      if key_2 == :players
-        values_2.each do |key_player|
-          if key_player.has_value?(players_name)
-            return key_player[:points]
-          end
-        end
-      end
-    end
-  end
+  find_player(players_name)[:points]
 end
 
 def shoe_size(players_name)
-  game_hash.each do |key, values|
-    values.each do |key_2, values_2|
-      if key_2 == :players
-        values_2.each do |key_player|
-          if key_player.has_value?(players_name)
-            return key_player[:shoe]
-          end
-        end
-      end
-    end
-  end
+  find_player(players_name)[:shoe]
 end
 
 def team_colors(team_name)
-  game_hash.each do |key, value|
-    value.each do |key_2,value_2|
-      if value_2 == team_name
-        return game_hash[key][:colors]
-      end
-    end
-  end
+  find_team(team_name)[:colors]
 end
 
 def team_names
